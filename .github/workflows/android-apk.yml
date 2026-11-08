@@ -1,0 +1,49 @@
+name: Build BMW RED EDITION APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Extract app
+        run: |
+          unzip BMW_RED_EDITION_APP.zip -d extracted
+          cd extracted/BMW_RED_EDITION_APP
+          npm install
+          npx cap add android
+          npx cap sync android
+
+      - name: Build APK
+        working-directory: extracted/BMW_RED_EDITION_APP/android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: BMW-RED-EDITION-APK
+          path: extracted/BMW_RED_EDITION_APP/android/app/build/outputs/apk/debug/app-debug.apk
+          
