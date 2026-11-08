@@ -27,7 +27,7 @@ jobs:
 
       - name: Extract app
         run: |
-          unzip -q BMW_RED_EDITION_2.3_MERGED_SOURCE.zip -d extracted
+          unzip -q BMW_RED_EDITION_2.3.1_3D_FIX_SOURCE.zip -d extracted        
           test -f extracted/BMW_RED_EDITION_APP/package.json
           cd extracted/BMW_RED_EDITION_APP
           npm install
