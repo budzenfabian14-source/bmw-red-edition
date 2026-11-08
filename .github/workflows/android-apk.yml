@@ -27,7 +27,7 @@ jobs:
 
       - name: Extract app
         run: |
-          unzip BMW_RED_EDITION_2.2_3D_GARAGE_SOURCE.zip -d extracted
+          unzip BMW_RED_EDITION_2.3_3D_GARAGE_SOURCE.zip -d extracted
           cd extracted/BMW_RED_EDITION_APP
           npm install
           npx cap add android
